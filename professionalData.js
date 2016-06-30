@@ -2,7 +2,7 @@ export const name = 'FVI Student';
 export const title = 'Javascript Ninja';
 export const introLabel = 'The Interactive Resume Of';
 export const overview = 'Overview';
-export const chartLabels = ['design', 'code', 'data', 'IoT']
+export const chartLabels = ['Design', 'DOM', 'CSS', 'APIs']
 export const values = 'Professional Values';
 export const lifeLearn = {h1:'Life Long \nLearning ', h2: 'Consistent analysis of innovation and \nself-motivated pursuit of knowledge.'};
 export const tdd = {h1:'Test Driven \nDevelopment', h2: 'All code is innocent until proven guilty.'};
@@ -12,18 +12,17 @@ export const ee = {h1:'Engineering \nElegance', h2:'The most effective solutions
 export const tools = 'Tools';
 export const termContent = [
   "favoriteTools = {",
-  "\t\t\t'Mobile' : 'React Native',",
-  "\t\t\t'Gaming/High Interactivty' : 'Phaser.io',",
-  "\t\t\t'Front End' : ['MaterializeCSS', 'React', 'D3'],",
-  "\t\t\t'Data Science' : ['Scipy', 'Numpy'],",
-  "\t\t\t'Back End' : ['Flask', 'Express','Socket.io']",
-  "\t\t\t'Database' : 'Mongo DB',",
-  "\t\t\t'Embedded Platform' : 'Tessel.io',",
+  "\t\t\t'Mobile':['React Native', 'Ionic']",
+  "\t\t\t'Gaming/High Interactivty': ['Phaser.io', 'Canvas API']",
+  "\t\t\t'DOM Manipulation' : ['jQuery', 'Angular', 'pHp'],",
+  "\t\t\t'CSS Frameworks' : ['MaterializeCSS', 'Bootstrap'],",
+  "\t\t\t'Back End' : ['Express','Socket.io'],",
+  "\t\t\t'Database' : ['Mongo DB', 'MySQL'],",
   "\t\t\t'User Interface' : ['Balsamiq’,'Sketch','Photoshop']",
   "\t}"
  ];
 
-
+export const markers =['Skills', 'Projects', 'Credentials']
 
 
 export const skills = {

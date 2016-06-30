@@ -15,4 +15,4 @@ export const chart = { font: "25px Roboto", fill: blueGrey500[1], boundsAlignH: 
 export const h1 = { font: "30px Roboto", fill: 'white', boundsAlignH: "left", boundsAlignV: "middle" };
 export const h2 = { font: "15px Roboto", fill: 'grey', boundsAlignH: "left", boundsAlignV: "middle" };
 export const terminal = { font: "20px Roboto Mono", fill: red[1]};
-export const card = { font: "150px Electrolize", fill: blueGrey600[1], boundsAlignH: "center", boundsAlignV: "middle" };
+export const card = { font: "120px Electrolize", fill: blueGrey600[1], boundsAlignH: "center", boundsAlignV: "middle" };

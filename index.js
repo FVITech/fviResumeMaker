@@ -14,13 +14,13 @@ init(){
   this.xi = 100;
   this.yi = 100;
   this.points = {
-    'x': [ this.xi, 100,1000,2000,3000,4000, 4900, 4900  ],
-    'y': [ this.yi, 750,750,750,750,750,     750,  2000  ]
+    'x': [ this.xi, 100,1000,2000,3000,4000, 4900, 4900, 4900, 4900, 5900, 6900, 7900, 8900, 9900 ],
+    'y': [ this.yi, 750,750, 750, 750, 750,  750,  2000, 3000, 3900, 3900, 3900, 3900, 3900,3900 ]
   };
   this.pos = 0;
   this.path = [];
-  this.worldWidth = 1920*4;
-  this.worldHeight= 1080*2;
+  this.worldWidth = 1920*8;
+  this.worldHeight= 1080*6;
 
 
   //terminal variables
@@ -127,7 +127,16 @@ create(){
   this.createCard(2800,320,'redCard',pData.mr.h1,pData.mr.h2  )
   this.createCard(3030,160,'yellowCard',pData.lifeLearn.h1,pData.lifeLearn.h2 )
 
+  this.createBanner(4100, 60, pData.tools)
+  const terminalWidth = 759, terminalHeight = 448, terminalX = 3895, terminalY =210;
+  add.sprite(terminalX, terminalY, 'terminal').scale.setTo(1.1)
+  this.termText = add.text(terminalX+60, terminalY+80, '', style.terminal)
+  this.wordByWord = this.terminal()
+  this.synHighlight()
 
+  this.createMarker(5000,80, pData.markers[0] )
+  this.createMarker(5000,3200, pData.markers[1] )
+  this.createMarker(9800,3200, pData.markers[2] )
 
 },
 
@@ -140,6 +149,12 @@ update(){
     if(this.charge.x === 4900){
       camera.focusOnXY(this.charge.x+500, this.charge.y-300);
     }
+
+    if(this.charge.y === 3900){
+      camera.focusOnXY(this.charge.x+500, this.charge.y-300);
+    }
+
+
 
 
     if(this.cursors.right.isDown){
@@ -165,7 +180,9 @@ update(){
     this.yellowBarUpdater()
     this.greenBarUpdater()
 
-
+    if(this.charge.x > 3600){
+      this.wordByWord();
+    }
 
 
 },
@@ -242,7 +259,80 @@ createCard(x, y, image, h1, h2){
   const H2 = add.text(0,0, h2, style.h2);
   H2.setTextBounds(CardX+35, CardY+60, CardWidth,CardHeight);
 },
+terminal(){
+  let executed = false
+  return function(){
+    if(!executed){
+      executed= true
+      this.nextLine()
+    }
 
+  }
+},
+
+nextLine() {
+
+    if (this.lineIndex === pData.termContent.length){
+        //  We're finished
+        return;
+    }
+
+
+    //  Split the current line on spaces, so one word per array element
+    this.line = pData.termContent[this.lineIndex].split(' ');
+
+    //  Reset the word index to zero (the first word in the line)
+    this.wordIndex = 0;
+
+    //  Call the 'nextWord' function once for each word in the line (line.length)
+    resume.time.events.repeat(this.wordDelay, this.line.length, this.nextWord, this);
+
+    //  Advance to the next line
+    this.lineIndex++;
+
+
+},
+nextWord() {
+  this.termText.text = this.termText.text.concat(this.line[this.wordIndex] + " ");
+
+  //  Advance the word index to the next word in the line
+  this.wordIndex++;
+
+
+  //  Last word?
+  if (this.wordIndex === this.line.length)
+  {
+      //  Add a carriage return
+      this.termText.text = this.termText.text.concat("\n");
+
+      //  Get the next line after the lineDelay amount of ms has elapsed
+      resume.time.events.add(this.lineDelay, this.nextLine, this);
+  }
+},
+synHighlight(){
+
+  const text = pData.termContent.join(' ')
+  for (let i = 0; i < text.length; i++) {
+    if( text[i] === '='){
+      this.termText.addColor(style.teal[1], i)
+      this.termText.addColor(style.green[1], i+1)
+    }else if(text[i]==='{' || text[i]==='}' || text[i]==='[' ||text[i]===']' || text[i]===',' || text[i]===':' ){
+      this.termText.addColor(style.lightGrey[1], i)
+      this.termText.addColor(style.green[1], i+1)
+    }
+  }
+},
+createMarker(x, y, text){
+  const {add} =resume
+  const markerWidth = 1000, markerHeight = 700, markerX = x, markerY = y;
+  const bmd = add.bitmapData(markerWidth, markerHeight);
+  bmd.shadow('rgba(0, 0, 0, 0.4)', 100  ,28,34);
+  bmd.copy('cardMarker');
+  const sprite1 = add.sprite(markerX ,markerY, bmd)
+  const title = resume.add.text(0, 0, text, style.card);
+  title.setTextBounds(markerX, markerY, markerWidth, markerHeight);
+
+},
 
 }
 
