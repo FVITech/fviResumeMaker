@@ -138,6 +138,9 @@ create(){
   this.createMarker(5000,3200, pData.markers[1] )
   this.createMarker(9900,3200, pData.markers[2] )
 
+
+// Joe's Stuff
+
 },
 
 update(){
@@ -339,4 +342,4 @@ createMarker(x, y, text){
 
 }
 
-const resume = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'resume', methods)
+const resume = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'resume', methods)git
