@@ -11,8 +11,8 @@ init(){
   this.pathBMD = null;
   this.charge = null;
   this.cursors = null;
-  this.xi = 100;
-  this.yi = 100;
+  this.xi = 6497;
+  this.yi = 3900;
   this.points = {
     'x': [ this.xi, 100,1000,2000,3000,4000, 4900, 4900, 4900, 4900, 5900, 6900, 7900, 8900, 9900, 9900, 9900,9900 ],
     'y': [ this.yi, 750,750, 750, 750, 750,  750,  2000, 3000, 3900, 3900, 3900, 3900, 3900,3900, 3000, 2000, 750  ]
@@ -138,6 +138,17 @@ create(){
   this.createMarker(5000,3200, pData.markers[1] )
   this.createMarker(9900,3200, pData.markers[2] )
 
+  // Prueba de Circulo
+  const circleBmd = add.bitmapData(700, 700);
+  add.sprite(6100, 3200, circleBmd)
+  circleBmd.context.beginPath();
+  circleBmd.context.arc(100, 100, 100 , 0, Math.PI*2, false)
+  circleBmd.context.fillStyle = "lightBlue";
+  circleBmd.context.fill();
+  circleBmd.context.stroke();
+
+
+
 },
 
 update(){
@@ -199,7 +210,7 @@ render(){
 
 plotPath(){
   const {math, width} = resume
-  const speed = 6
+  const speed = 20
   for (var i = 0; i <= 1; i += speed/width) {
     var px = math.linearInterpolation(this.points.x, i)
     var py = math.linearInterpolation(this.points.y, i)
@@ -336,6 +347,7 @@ createMarker(x, y, text){
   title.setTextBounds(markerX, markerY, markerWidth, markerHeight);
 
 },
+
 
 }
 

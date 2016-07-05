@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "budo index.js --live"
+    "start": "budo index.js --live",
+    "bundle": "browserify index.js -o dist.js"
   },
   "browserify": {
     "transform": [
