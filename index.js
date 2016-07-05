@@ -14,8 +14,8 @@ init(){
   this.xi = 100;
   this.yi = 100;
   this.points = {
-    'x': [ this.xi, 100,1000,2000,3000,4000, 4900, 4900, 4900, 4900, 5900, 6900, 7900, 8900, 9900 ],
-    'y': [ this.yi, 750,750, 750, 750, 750,  750,  2000, 3000, 3900, 3900, 3900, 3900, 3900,3900 ]
+    'x': [ this.xi, 100,1000,2000,3000,4000, 4900, 4900, 4900, 4900, 5900, 6900, 7900, 8900, 9900, 9900, 9900,9900 ],
+    'y': [ this.yi, 750,750, 750, 750, 750,  750,  2000, 3000, 3900, 3900, 3900, 3900, 3900,3900, 3000, 2000, 750  ]
   };
   this.pos = 0;
   this.path = [];
@@ -136,7 +136,7 @@ create(){
 
   this.createMarker(5000,80, pData.markers[0] )
   this.createMarker(5000,3200, pData.markers[1] )
-  this.createMarker(9800,3200, pData.markers[2] )
+  this.createMarker(9900,3200, pData.markers[2] )
 
 },
 
@@ -154,6 +154,9 @@ update(){
       camera.focusOnXY(this.charge.x+500, this.charge.y-300);
     }
 
+    if(this.charge.x === 9900){
+      camera.focusOnXY(this.charge.x+500, this.charge.y-300);
+    }
 
 
 
