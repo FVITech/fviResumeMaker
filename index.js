@@ -59,12 +59,13 @@ preload(){
   load.image("Pinterest","assets/Pinterest.png");
 
   load.image('skillsPanelBlue','assets/skillsPanelBlue.png');
+  load.image('skillsPanelPurple','assets/skillsPanelPurple.png');
+  load.image('skillsPanelTeal','assets/skillsPanelTeal.png');
   load.image('yellowButton','assets/yellowButton.png');
 },
 
 create(){
   const {add, width, height, input} = resume
-
   this.pathBMD = add.bitmapData( width, height);
   this.pathBMD.addToWorld();
 
@@ -72,8 +73,6 @@ create(){
   this.charge.anchor.set(0.5);
   this.cursors = input.keyboard.createCursorKeys();
   this.plotPath()
-
-
 
   // Introduction
   this.createBanner(510, 60, pData.introLabel)
@@ -93,9 +92,9 @@ create(){
   add.sprite(chartX, chartY, 'chart');
 
   let offset =0
-  pData.chartLabels.forEach(i=>{
-    const chartLabels = add.text(0, 0, i, style.chart);
-    chartLabels.setTextBounds(chartX-30, chartY+180, offset+=295, chartHeight);
+  pData.skills.levels.forEach(i=>{
+    const levels = add.text(0, 0, i, style.chart);
+    levels.setTextBounds(chartX-30, chartY+180, offset+=295, chartHeight);
   })
 
   //progress bars
@@ -127,6 +126,7 @@ create(){
   this.createCard(2800,320,'redCard',pData.mr.h1,pData.mr.h2  )
   this.createCard(3030,160,'yellowCard',pData.lifeLearn.h1,pData.lifeLearn.h2 )
 
+  //Tool
   this.createBanner(4100, 60, pData.tools)
   const terminalWidth = 759, terminalHeight = 448, terminalX = 3895, terminalY =210;
   add.sprite(terminalX, terminalY, 'terminal').scale.setTo(1.1)
@@ -134,9 +134,41 @@ create(){
   this.wordByWord = this.terminal()
   this.synHighlight()
 
-  this.createMarker(5000,80, pData.markers[0] )
-  this.createMarker(5000,3200, pData.markers[1] )
-  this.createMarker(9800,3200, pData.markers[2] )
+  //Skills Area
+  this.createMarker(5000,80, pData.markers[0])
+
+  //skills Panels
+  this.createBanner(5330, 950, pData.skills.banners[0])
+  this.createPanel(5000,1100,'skillsPanelBlue', pData.skills.design)
+
+  this.createBanner(5330, 1750, pData.skills.banners[1])
+  this.createPanel(5000,1900,'skillsPanelPurple',pData.skills.frontEnd)
+
+  this.createBanner(5330, 2550, pData.skills.banners[2])
+  this.createPanel(5000,2700,'skillsPanelTeal',pData.skills.backEnd)
+
+  // this.updateBar(5160,1295,690)
+  const vRadius =9
+  const barWidth = {low:200,mid:400, high:600,exp:700}
+  // const barPosition = [1612, 1758, 1905, 2052]
+
+  const desginBmd = add.bitmapData( barWidth.exp, vRadius*6)
+  add.sprite(5160,1298, designBmd)
+  this.updateBar = this.horizBar( designBmd, style.yellow[1], barWidth.exp, vRadius,1300);
+
+  this.createMarker(5000,3200, pData.markers[1])
+  this.createMarker(9800,3200, pData.markers[2])
+
+
+
+
+
+
+  // add.sprite(5160,1400, vertBmd)
+  // this.updateBar = this.horizBar(vertBmd, style.yellow[1], 400, vRadius);
+  //
+  // add.sprite(5160,1510, vertBmd)
+  // this.updateBar = this.horizBar(vertBmd, style.yellow[1], 700, vRadius);
 
 },
 
@@ -153,8 +185,6 @@ update(){
     if(this.charge.y === 3900){
       camera.focusOnXY(this.charge.x+500, this.charge.y-300);
     }
-
-
 
 
     if(this.cursors.right.isDown){
@@ -185,7 +215,13 @@ update(){
     }
 
 
+      this.updateBar();
+
+
+      this.updateBar()
 },
+
+
 
 render(){
   const {debug, renderer} =  resume
@@ -196,7 +232,7 @@ render(){
 
 plotPath(){
   const {math, width} = resume
-  const speed = 6
+  const speed = 26
   for (var i = 0; i <= 1; i += speed/width) {
     var px = math.linearInterpolation(this.points.x, i)
     var py = math.linearInterpolation(this.points.y, i)
@@ -309,6 +345,7 @@ nextWord() {
       resume.time.events.add(this.lineDelay, this.nextLine, this);
   }
 },
+
 synHighlight(){
 
   const text = pData.termContent.join(' ')
@@ -333,6 +370,45 @@ createMarker(x, y, text){
   title.setTextBounds(markerX, markerY, markerWidth, markerHeight);
 
 },
+
+createPanel(x,y,image,skill){
+  const {add} = resume
+  const PanelWidth = 500, PanelHeight= 650, PanelX = x , PanelY = y;
+  add.sprite(PanelX, PanelY, image).scale.setTo(1.4);
+
+
+  let offset =0
+  pData.skills.levels.forEach(i=>{
+    const levels = add.text(0, 0, i, style.levels);
+    levels.setTextBounds(PanelX+220, PanelY-240, offset+=300, PanelHeight);
+  })
+  let onset = 0
+  skill.forEach(i=>{
+    const levels = add.text(0, 0, i, style.skills);
+    levels.setTextBounds(PanelX+150, PanelY+75, PanelWidth, onset+=210);
+  })
+
+},
+
+horizBar(bmd, color, barWidth, radius,triggerY){
+
+   let bp=0, speed=0.4
+
+   return function(){
+
+     const {context} = bmd
+      context.lineJoin = "round"
+      context.lineWidth = radius
+
+     if(bp < barWidth && this.charge.y > triggerY){
+       context.strokeStyle = color;
+       context.strokeRect(0, radius/2, bp, 5);
+       bp += resume.time.elapsedMS*speed
+     }
+
+    }
+}
+
 
 }
 

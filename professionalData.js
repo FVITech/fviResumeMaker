@@ -28,8 +28,8 @@ export const markers =['Skills', 'Projects', 'Credentials']
 export const skills = {
   banners:['Design', 'Front End', 'Back End', 'Electrical Engineering'],
   levels:['beginner', 'familiar','proficient', 'expert'],
-  design:['Illustrator','Photoshop', 'Balsamiq'],
-  frontEnd:['React','BootStrap','jQuery','D3'],
+  design:['Illustrator','Photoshop','Balsamiq'],
+  frontEnd:['React','BootStrap','jQuery'],
   backEnd:['Flask','Node/Express','MongoDB'],
   dataScience:['Scipy/Numpy','pandas', 'Econometrics'],
   electricalEngineering:['Embedded C', 'Schematic Development',  'PCB Routing', 'Seeed Studio Production Cycle', 'System Simulation', 'Sensors and Actuators']
