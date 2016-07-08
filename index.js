@@ -92,7 +92,7 @@ create(){
   add.sprite(chartX, chartY, 'chart');
 
   let offset =0
-  pData.skills.levels.forEach(i=>{
+  pData.chartLabels.forEach(i=>{
     const levels = add.text(0, 0, i, style.chart);
     levels.setTextBounds(chartX-30, chartY+180, offset+=295, chartHeight);
   })
@@ -138,23 +138,22 @@ create(){
   this.createMarker(5000,80, pData.markers[0])
 
   //skills Panels
+  const barWidth = {low:230,mid:370, high:500,exp:700}
+
   this.createBanner(5330, 950, pData.skills.banners[0])
   this.createPanel(5000,1100,'skillsPanelBlue', pData.skills.design)
+  this.skillsBar(1298,barWidth.low,1400,barWidth.exp,1507,barWidth.mid,1300)
+
 
   this.createBanner(5330, 1750, pData.skills.banners[1])
   this.createPanel(5000,1900,'skillsPanelPurple',pData.skills.frontEnd)
+  this.skillsBar(1698,barWidth.low,1800,barWidth.exp,1907,barWidth.mid,2100)
+
 
   this.createBanner(5330, 2550, pData.skills.banners[2])
   this.createPanel(5000,2700,'skillsPanelTeal',pData.skills.backEnd)
 
-  // this.updateBar(5160,1295,690)
-  const vRadius =9
-  const barWidth = {low:200,mid:400, high:600,exp:700}
-  // const barPosition = [1612, 1758, 1905, 2052]
 
-  const desginBmd = add.bitmapData( barWidth.exp, vRadius*6)
-  add.sprite(5160,1298, designBmd)
-  this.updateBar = this.horizBar( designBmd, style.yellow[1], barWidth.exp, vRadius,1300);
 
   this.createMarker(5000,3200, pData.markers[1])
   this.createMarker(9800,3200, pData.markers[2])
@@ -212,13 +211,13 @@ update(){
 
     if(this.charge.x > 3600){
       this.wordByWord();
-    }
+      }
 
 
-      this.updateBar();
 
-
-      this.updateBar()
+    this.updateBar()
+    this.betaBar()
+    this.zuluBar()
 },
 
 
@@ -390,6 +389,32 @@ createPanel(x,y,image,skill){
 
 },
 
+skillsBar(y1,l1,y2,l2,y3,l3,triggerY){
+
+  const {add} = resume
+  const vRadius =9
+
+  const alphaBmd = add.bitmapData( l1, vRadius*6)
+  const bravoBmd = add.bitmapData( l2, vRadius*6)
+  const charlieBmd = add.bitmapData( l3, vRadius*6)
+  add.sprite(5160,y1, alphaBmd)
+  add.sprite(5160,y2, bravoBmd)
+  add.sprite(5160,y3, charlieBmd)
+
+  this.updateBar = this.horizBar( alphaBmd, style.yellow[1], l1, vRadius,triggerY);
+  this.betaBar = this.horizBar( bravoBmd, style.yellow[1], l2, vRadius,triggerY);
+  this.zuluBar = this.horizBar( charlieBmd, style.yellow[1], l3, vRadius,triggerY);
+
+
+  // const betaBmd = add.bitmapData( l2, vRadius*6)
+  // add.sprite(5160,y2, betaBmd)
+  // this.betaBar = this.horizBar( betaBmd, style.yellow[1], l2, vRadius,triggerY);
+
+  // const zuluBmd = add.bitmapData( l3, vRadius*6)
+  // add.sprite(5160,y3, zuluBmd)
+  // this.zuluBar = this.horizBar( zuluBmd, style.yellow[1], l3, vRadius,triggerY);
+},
+
 horizBar(bmd, color, barWidth, radius,triggerY){
 
    let bp=0, speed=0.4
@@ -405,6 +430,7 @@ horizBar(bmd, color, barWidth, radius,triggerY){
        context.strokeRect(0, radius/2, bp, 5);
        bp += resume.time.elapsedMS*speed
      }
+
 
     }
 }
