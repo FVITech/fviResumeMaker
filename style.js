@@ -16,3 +16,5 @@ export const h1 = { font: "30px Roboto", fill: 'white', boundsAlignH: "left", bo
 export const h2 = { font: "15px Roboto", fill: 'grey', boundsAlignH: "left", boundsAlignV: "middle" };
 export const terminal = { font: "20px Roboto Mono", fill: red[1]};
 export const card = { font: "120px Electrolize", fill: blueGrey600[1], boundsAlignH: "center", boundsAlignV: "middle" };
+export const levels = { font: "20px Roboto", fill: 'white', boundsAlignH: "center", boundsAlignV: "middle" };
+export const skills = { font: "25px Roboto", fill: 'white', boundsAlignH: "left", boundsAlignV: "middle" };
