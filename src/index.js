@@ -61,6 +61,10 @@ preload(){
   load.image('skillsPanelPurple','assets/skillsPanelPurple.png');
   load.image('skillsPanelTeal','assets/skillsPanelTeal.png');
   load.image('yellowButton','assets/yellowButton.png');
+
+  load.image('certMedium', 'assets/certMedium.png');
+  load.image('certStriped', 'assets/certStriped.png');
+  load.image('blueButton', 'assets/blueButton.png');
 },
 
 create(){
@@ -138,6 +142,8 @@ create(){
   this.createMarker(5000,3200, pData.markers[1] )
   this.createMarker(9900,3200, pData.markers[2] )
 
+
+
   //Skills Area
 
 
@@ -159,7 +165,11 @@ create(){
   this.skillThreeBar(2900,barWidth.pro,3005,barWidth.pro,3107,barWidth.exp,2950)
 
 
+  // Joe's Stuff
 
+  //TODO: shift sprite to the left instead of cert to the right
+  this.createYellowCert(9980, 2400, pData.formalEdu[0])
+  this.createBlueCert(9980, 1400, pData.formalEdu[1])
 
 
 
@@ -476,7 +486,73 @@ horizBar(bmd, color, barWidth, radius,triggerY){
 
 
     }
-}
+},
+createYellowCert(x,y, text){
+  const keys = Object.keys(text)
+  const {add} =resume
+  const certWidth = 950, certHeight = 570, certX = x, certY = y;
+  const bmd = add.bitmapData(certWidth, certHeight);
+  bmd.copy('certMedium');
+  const sprite1 = add.sprite(certX ,certY, bmd)
+  const title = add.text(0, 0, text.degreeTitle, style.degreeTitle);
+  title.setTextBounds(certX+100, certY+100, certWidth, certHeight);
+  const year = add.text(0, 0, text.year, style.year);
+  year.setTextBounds(certX-98, certY+100, certWidth, certHeight);
+
+  let bullets
+  if(text.Specialization===undefined){
+    bullets = add.text(0, 0, `\n•\t\t\t${keys[2]}:  ${text.Institution}`, style.bullets);
+  }else{
+    bullets = add.text(0, 0, `\n•\t\t\t${keys[2]}:  ${text.Institution}\n\n•\t\t\t${keys[3]}: ${text.Specialization}`, style.bullets);
+  }
+  bullets.setTextBounds(certX, certY, certWidth, certHeight)
+  this.createButton(certX, certY, 'verfiy this','yellowButton',  'http://www.google.com')
+},
+createBlueCert(x,y, text){
+  const keys = Object.keys(text)
+  const {add} =resume
+  const certWidth = 950, certHeight = 600, certX = x, certY = y;
+  const bmd = add.bitmapData(certWidth, certHeight);
+  bmd.copy('certStriped');
+  const sprite1 = add.sprite(certX ,certY, bmd)
+  const title = add.text(0, 0, 'Certifications', style.certifications);
+  title.setTextBounds(certX+100, certY+100, certWidth, certHeight);
+
+  const bullets = add.text(0, 0, `\n•\t\t\t${keys[2]}:  ${text.Institution}`, style.bullets);
+  bullets.setTextBounds(certX, certY, certWidth, certHeight)
+  this.createButton(certX, certY, 'verfiy this','blueButton',  'http://www.google.com')
+},
+createButton(x,y,label, image, url){
+
+  const {add} =resume
+  var buttonBmd = add.bitmapData(124, 52);
+  buttonBmd.shadow('rgba(0, 0, 0, 0.2)', 0.0001, 0.0001, 0.0001);
+  buttonBmd.copy(image);
+  add.button(x+420, y+440,buttonBmd, animate, this);
+  const text = add.text(x+420+20 , y+440+12 , label, {font : '20px lintelregular', fill: 'white'});
+
+  let i = 0;
+  function animate () {
+    var arr = [ 0.0001, 1,2,3,4,4,3,2,1, 0.0001 ];
+    setTimeout(function () {
+      i++;
+      buttonBmd.clear();
+      buttonBmd.copy(image);
+      buttonBmd.shadow('rgba(0, 0, 0, 0.2)', arr[i], 0.0001, arr[i]);
+
+      if (i < arr.length) {
+         animate();
+      }else{
+        i = 1;
+        // ( ()=> window.location.href = url)()
+        buttonBmd.shadow('rgba(0, 0, 0, 0.2)', 0.0001, 0.0001, 0.0001)
+
+      }
+
+     }, 80);
+
+  }
+},
 
 
 }

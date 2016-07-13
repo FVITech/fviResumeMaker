@@ -66,6 +66,10 @@ export const projects = {
   }
 };
 
+export const formalEdu = [
+    {'degreeTitle':'Web Application Engineer', 'year': 2016, 'Institution': 'Florida Vocational Institute', 'Specialization': 'Data Visualization'},
+    {'degreeTitle': 'High School Diploma', 'year': 2006, 'Institution': 'Westchester Senior High'}
+  ]
 
 export const credentials = {
   button: 'verify this',
