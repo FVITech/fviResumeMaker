@@ -16,3 +16,7 @@ export const h1 = { font: "30px Roboto", fill: 'white', boundsAlignH: "left", bo
 export const h2 = { font: "15px Roboto", fill: 'grey', boundsAlignH: "left", boundsAlignV: "middle" };
 export const terminal = { font: "20px Roboto Mono", fill: red[1]};
 export const card = { font: "120px Electrolize", fill: blueGrey600[1], boundsAlignH: "center", boundsAlignV: "middle" };
+export const degreeTitle = {font: "45px lintelregular", fill: yellow[1], boundsAlignH: "left", boundsAlignV: "top"}
+export const certifications = {font: "45px lintelregular", fill: blue[1], boundsAlignH: "left", boundsAlignV: "top"}
+export const year = {font: "45px lintelregular", fill: blueGrey600[1], boundsAlignH: "right", boundsAlignV: "top"}
+export const bullets = {font: "30px Roboto", fill: blueGrey600[1], boundsAlignH: "center", boundsAlignV: "middle"}

@@ -67,14 +67,19 @@ export const projects = {
 };
 
 
+export const formalEdu = [
+    {'degreeTitle':'Web Application Engineer', 'year': 2016, 'Institution': 'Florida Vocational Institute', 'Specialization': 'Data Visualization'},
+    {'degreeTitle': 'High School Diploma', 'year': 2006, 'Institution': 'Westchester Senior High'}
+  ]
+
 export const credentials = {
   button: 'verify this',
-  'Formal Education':{
-    degree: ['BS Electrical Engineering', 'BA Communication'],
-    year:[2006, 2014],
-    school:['Loyola University Chicago', 'Oregon Institute of Technology'],
-    minors:['Mechanical Engineering', 'Conflict Resolution']
-  },
+  'formalEdu':[
+    {'title':'Web App Development', 'year': 2016, 'Instiution': 'Florida Vocational Institute', 'Specialization': 'Data Visualization'},
+    {'title': 'High School Diploma', 'year': 2006, 'Instiution': 'Westchester Senior High'}
+  ],
+
+
   'Continuing Education':{
     course:['Embedded Systems', 'Introduction to Computer Science', 'MongoDB for Developers', 'jQuery Fundamentals', 'Systems View of Communication (3 Part Series)', 'HTML5 Essentials and Best Practices', 'Front-End Web UI Frameworks and Tools'],
     provider:['UT Austin - edX', 'MIT - edX', 'MongoDB University', 'Microsoft - edX', 'W3C - edX', 'HKUST - Coursera']

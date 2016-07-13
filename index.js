@@ -14,7 +14,7 @@ init(){
   this.xi = 100;
   this.yi = 100;
   this.points = {
-    'x': [ this.xi, 100,1000,2000,3000,4000, 4900, 4900, 4900, 4900, 5900, 6900, 7900, 8900, 9900, 9900, 9900,9900 ],
+    'x': [ this.xi, 100,1000,2000,3000,4000, 4900, 4900, 4900, 4900, 5900, 6900, 7900, 8900, 9800, 9800, 9800,9800 ],
     'y': [ this.yi, 750,750, 750, 750, 750,  750,  2000, 3000, 3900, 3900, 3900, 3900, 3900,3900, 3000, 2000, 750  ]
   };
   this.pos = 0;
@@ -48,6 +48,8 @@ preload(){
   load.image('tealCard', 'assets/tealCard.png');
   load.image('terminal', 'assets/terminal.png');
   load.image('cardMarker', 'assets/cardMarker.png');
+  load.image('certMedium', 'assets/certMedium.png');
+  load.image('certStriped', 'assets/certStriped.png');
 
   load.image("share","assets/shareButton.png");
   load.image("modalBG","assets/modalDialog.png");
@@ -60,6 +62,7 @@ preload(){
 
   load.image('skillsPanelBlue','assets/skillsPanelBlue.png');
   load.image('yellowButton','assets/yellowButton.png');
+  load.image('blueButton','assets/blueButton.png');
 },
 
 create(){
@@ -136,10 +139,19 @@ create(){
 
   this.createMarker(5000,80, pData.markers[0] )
   this.createMarker(5000,3200, pData.markers[1] )
+
+
+
+
+
   this.createMarker(9900,3200, pData.markers[2] )
 
 
-// Joe's Stuff
+  // Joe's Stuff
+  this.createYellowCert(9900, 2400, pData.formalEdu[0])
+  this.createBlueCert(9900, 1400, pData.formalEdu[1])
+
+
 
 },
 
@@ -157,7 +169,7 @@ update(){
       camera.focusOnXY(this.charge.x+500, this.charge.y-300);
     }
 
-    if(this.charge.x === 9900){
+    if(this.charge.x === 9800){
       camera.focusOnXY(this.charge.x+500, this.charge.y-300);
     }
 
@@ -189,6 +201,8 @@ update(){
     if(this.charge.x > 3600){
       this.wordByWord();
     }
+
+
 
 
 },
@@ -340,6 +354,72 @@ createMarker(x, y, text){
 
 },
 
+createYellowCert(x,y, text){
+  const keys = Object.keys(text)
+  const {add} =resume
+  const certWidth = 950, certHeight = 570, certX = x, certY = y;
+  const bmd = add.bitmapData(certWidth, certHeight);
+  bmd.copy('certMedium');
+  const sprite1 = add.sprite(certX ,certY, bmd)
+  const title = add.text(0, 0, text.degreeTitle, style.degreeTitle);
+  title.setTextBounds(certX+100, certY+100, certWidth, certHeight);
+  const year = add.text(0, 0, text.year, style.year);
+  year.setTextBounds(certX-98, certY+100, certWidth, certHeight);
+
+  let bullets
+  if(text.Specialization===undefined){
+    bullets = add.text(0, 0, `\n•\t\t\t${keys[2]}:  ${text.Institution}`, style.bullets);
+  }else{
+    bullets = add.text(0, 0, `\n•\t\t\t${keys[2]}:  ${text.Institution}\n\n•\t\t\t${keys[3]}: ${text.Specialization}`, style.bullets);
+  }
+  bullets.setTextBounds(certX, certY, certWidth, certHeight)
+  this.createButton(certX, certY, 'verfiy this','yellowButton',  'http://www.google.com')
+},
+createBlueCert(x,y, text){
+  const keys = Object.keys(text)
+  const {add} =resume
+  const certWidth = 950, certHeight = 600, certX = x, certY = y;
+  const bmd = add.bitmapData(certWidth, certHeight);
+  bmd.copy('certStriped');
+  const sprite1 = add.sprite(certX ,certY, bmd)
+  const title = add.text(0, 0, 'Certifications', style.certifications);
+  title.setTextBounds(certX+100, certY+100, certWidth, certHeight);
+
+  const bullets = add.text(0, 0, `\n•\t\t\t${keys[2]}:  ${text.Institution}`, style.bullets);
+  bullets.setTextBounds(certX, certY, certWidth, certHeight)
+  this.createButton(certX, certY, 'verfiy this','blueButton',  'http://www.google.com')
+},
+createButton(x,y,label, image, url){
+
+  const {add} =resume
+  var buttonBmd = add.bitmapData(124, 52);
+  buttonBmd.shadow('rgba(0, 0, 0, 0.2)', 0.0001, 0.0001, 0.0001);
+  buttonBmd.copy(image);
+  add.button(x+420, y+440,buttonBmd, animate, this);
+  const text = add.text(x+420+20 , y+440+12 , label, {font : '20px lintelregular', fill: 'white'});
+
+  let i = 0;
+  function animate () {
+    var arr = [ 0.0001, 1,2,3,4,4,3,2,1, 0.0001 ];
+    setTimeout(function () {
+      i++;
+      buttonBmd.clear();
+      buttonBmd.copy(image);
+      buttonBmd.shadow('rgba(0, 0, 0, 0.2)', arr[i], 0.0001, arr[i]);
+
+      if (i < arr.length) {
+         animate();
+      }else{
+        i = 1;
+        // ( ()=> window.location.href = url)()
+        buttonBmd.shadow('rgba(0, 0, 0, 0.2)', 0.0001, 0.0001, 0.0001)
+
+      }
+
+     }, 80);
+
+  }
+},
 }
 
-const resume = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'resume', methods)git
+const resume = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'resume', methods)
