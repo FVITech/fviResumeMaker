@@ -1,6 +1,6 @@
 {
   "name": "javascript-modules",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,6 @@
     "deploy": "surge -p public -d fviresume.surge.sh",
     "build": "webpack",
     "yolo": "git add --all && git commit -am \"$(date)\" && npm version minor && git push origin master --tags && npm run build && npm run deploy"
-
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
