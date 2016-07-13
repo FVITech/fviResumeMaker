@@ -138,36 +138,26 @@ create(){
   this.createMarker(5000,80, pData.markers[0])
 
   //skills Panels
-  const barWidth = {low:230,mid:370, high:500,exp:700}
+  const barWidth = {begin:230, fam:370, pro:510,exp:700}
 
   this.createBanner(5330, 950, pData.skills.banners[0])
   this.createPanel(5000,1100,'skillsPanelBlue', pData.skills.design)
-  this.skillsBar(1298,barWidth.low,1400,barWidth.exp,1507,barWidth.mid,1300)
+  this.skillOneBar(1298,barWidth.fam,1400,barWidth.exp,1507,barWidth.pro,1300)
 
 
   this.createBanner(5330, 1750, pData.skills.banners[1])
   this.createPanel(5000,1900,'skillsPanelPurple',pData.skills.frontEnd)
-  this.skillsBar(1698,barWidth.low,1800,barWidth.exp,1907,barWidth.mid,2100)
+  this.skillTwoBar(2100,barWidth.pro,2205,barWidth.exp,2307,barWidth.fam,2100)
 
 
   this.createBanner(5330, 2550, pData.skills.banners[2])
   this.createPanel(5000,2700,'skillsPanelTeal',pData.skills.backEnd)
-
+  this.skillThreeBar(2900,barWidth.pro,3005,barWidth.pro,3107,barWidth.exp,2950)
 
 
   this.createMarker(5000,3200, pData.markers[1])
   this.createMarker(9800,3200, pData.markers[2])
 
-
-
-
-
-
-  // add.sprite(5160,1400, vertBmd)
-  // this.updateBar = this.horizBar(vertBmd, style.yellow[1], 400, vRadius);
-  //
-  // add.sprite(5160,1510, vertBmd)
-  // this.updateBar = this.horizBar(vertBmd, style.yellow[1], 700, vRadius);
 
 },
 
@@ -215,9 +205,18 @@ update(){
 
 
 
-    this.updateBar()
-    this.betaBar()
-    this.zuluBar()
+    this.skillOneBar1()
+    this.skillOneBar2()
+    this.skillOneBar3()
+
+    this.skillTwoBar1()
+    this.skillTwoBar2()
+    this.skillTwoBar3()
+
+    this.skillThreeBar1()
+    this.skillThreeBar2()
+    this.skillThreeBar3()
+
 },
 
 
@@ -389,7 +388,7 @@ createPanel(x,y,image,skill){
 
 },
 
-skillsBar(y1,l1,y2,l2,y3,l3,triggerY){
+skillOneBar(y1,l1,y2,l2,y3,l3,triggerY){
 
   const {add} = resume
   const vRadius =9
@@ -401,19 +400,55 @@ skillsBar(y1,l1,y2,l2,y3,l3,triggerY){
   add.sprite(5160,y2, bravoBmd)
   add.sprite(5160,y3, charlieBmd)
 
-  this.updateBar = this.horizBar( alphaBmd, style.yellow[1], l1, vRadius,triggerY);
-  this.betaBar = this.horizBar( bravoBmd, style.yellow[1], l2, vRadius,triggerY);
-  this.zuluBar = this.horizBar( charlieBmd, style.yellow[1], l3, vRadius,triggerY);
+  this.skillOneBar1 = this.horizBar( alphaBmd, style.yellow[1], l1, vRadius,triggerY);
+  this.skillOneBar2 = this.horizBar( bravoBmd, style.yellow[1], l2, vRadius,triggerY);
+  this.skillOneBar3 = this.horizBar( charlieBmd, style.yellow[1], l3, vRadius,triggerY);
 
 
-  // const betaBmd = add.bitmapData( l2, vRadius*6)
-  // add.sprite(5160,y2, betaBmd)
-  // this.betaBar = this.horizBar( betaBmd, style.yellow[1], l2, vRadius,triggerY);
 
-  // const zuluBmd = add.bitmapData( l3, vRadius*6)
-  // add.sprite(5160,y3, zuluBmd)
-  // this.zuluBar = this.horizBar( zuluBmd, style.yellow[1], l3, vRadius,triggerY);
 },
+
+skillTwoBar(y1,l1,y2,l2,y3,l3,triggerY){
+
+  const {add} = resume
+  const vRadius =9
+
+  const alphaBmd = add.bitmapData( l1, vRadius*6)
+  const bravoBmd = add.bitmapData( l2, vRadius*6)
+  const charlieBmd = add.bitmapData( l3, vRadius*6)
+  add.sprite(5160,y1, alphaBmd)
+  add.sprite(5160,y2, bravoBmd)
+  add.sprite(5160,y3, charlieBmd)
+
+  this.skillTwoBar1 = this.horizBar( alphaBmd, style.yellow[1], l1, vRadius,triggerY);
+  this.skillTwoBar2 = this.horizBar( bravoBmd, style.yellow[1], l2, vRadius,triggerY);
+  this.skillTwoBar3 = this.horizBar( charlieBmd, style.yellow[1], l3, vRadius,triggerY);
+
+
+
+},
+
+skillThreeBar(y1,l1,y2,l2,y3,l3,triggerY){
+
+  const {add} = resume
+  const vRadius =9
+
+  const alphaBmd = add.bitmapData( l1, vRadius*6)
+  const bravoBmd = add.bitmapData( l2, vRadius*6)
+  const charlieBmd = add.bitmapData( l3, vRadius*6)
+  add.sprite(5160,y1, alphaBmd)
+  add.sprite(5160,y2, bravoBmd)
+  add.sprite(5160,y3, charlieBmd)
+
+  this.skillThreeBar1 = this.horizBar( alphaBmd, style.yellow[1], l1, vRadius,triggerY);
+  this.skillThreeBar2 = this.horizBar( bravoBmd, style.yellow[1], l2, vRadius,triggerY);
+  this.skillThreeBar3 = this.horizBar( charlieBmd, style.yellow[1], l3, vRadius,triggerY);
+
+
+
+},
+
+
 
 horizBar(bmd, color, barWidth, radius,triggerY){
 
