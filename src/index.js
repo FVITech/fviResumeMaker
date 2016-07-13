@@ -126,8 +126,8 @@ create(){
   this.createCard(3030,160,'yellowCard',pData.lifeLearn.h1,pData.lifeLearn.h2 )
 
   //Tool
-  this.createBanner(4100, 60, pData.tools)
-  const terminalWidth = 759, terminalHeight = 448, terminalX = 3895, terminalY =210;
+  this.createBanner(4120, 60, pData.tools)
+  const terminalWidth = 759, terminalHeight = 448, terminalX = 3895, terminalY =180;
   add.sprite(terminalX, terminalY, 'terminal').scale.setTo(1.1)
   this.termText = add.text(terminalX+60, terminalY+80, '', style.terminal)
   this.wordByWord = this.terminal()
@@ -230,7 +230,7 @@ update(){
 
 render(){
   const {debug, renderer} =  resume
-  debug.text("Currently in development. Please  use the right and left arrow keys to navigate.")
+  debug.text("Currently in development. Please  use the right and left arrow keys to navigate.", 16, 16, style.blueGrey500[1])
   // debug.text(
   //   'x: ' + Math.round(this.charge.x) + ' y: ' + Math.round(this.charge.y)+ ', roundPixels ' + renderer.renderSession.roundPixels  , 32, 32,'black'
   // );

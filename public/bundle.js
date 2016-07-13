@@ -283,7 +283,10 @@
 	    var debug = resume.debug;
 	    var renderer = resume.renderer;
 
-	    debug.text('x: ' + Math.round(this.charge.x) + ' y: ' + Math.round(this.charge.y) + ', roundPixels ' + renderer.renderSession.roundPixels, 32, 32, 'black');
+	    debug.text("Currently in development. Please  use the right and left arrow keys to navigate.");
+	    // debug.text(
+	    //   'x: ' + Math.round(this.charge.x) + ' y: ' + Math.round(this.charge.y)+ ', roundPixels ' + renderer.renderSession.roundPixels  , 32, 32,'black'
+	    // );
 	  },
 	  plotPath: function plotPath() {
 	    var math = resume.math;
