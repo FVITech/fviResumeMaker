@@ -1,7 +1,6 @@
 import * as pData from './professionalData'
 import * as style from './style'
 
-
 const methods = {
 
 init(){
@@ -238,7 +237,7 @@ render(){
 
 plotPath(){
   const {math, width} = resume
-  const speed = 26
+  const speed = 6
   for (var i = 0; i <= 1; i += speed/width) {
     var px = math.linearInterpolation(this.points.x, i)
     var py = math.linearInterpolation(this.points.y, i)
