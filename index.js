@@ -11,8 +11,8 @@ init(){
   this.pathBMD = null;
   this.charge = null;
   this.cursors = null;
-  this.xi = 6497;
-  this.yi = 3900;
+  this.xi = 100;
+  this.yi = 100;
   this.points = {
     'x': [ this.xi, 100,1000,2000,3000,4000, 4900, 4900, 4900, 4900, 5900, 6900, 7900, 8900, 9900, 9900, 9900,9900 ],
     'y': [ this.yi, 750,750, 750, 750, 750,  750,  2000, 3000, 3900, 3900, 3900, 3900, 3900,3900, 3000, 2000, 750  ]
@@ -139,18 +139,43 @@ create(){
   this.createMarker(9900,3200, pData.markers[2] )
 
   // Prueba de Circulo
+  let lastPosition = 0;
+  const slices = [1/3, .33, .34]
+  const data = ['React', 'Canvas', 'React-native']
+  const colors = [style.blue[1], style.yellow[1], style.red[1]]
+  const mp = 250
   const circleBmd = add.bitmapData(700, 700);
-  add.sprite(6100, 3200, circleBmd)
-  circleBmd.context.beginPath();
-  circleBmd.context.arc(100, 100, 100 , 0, Math.PI*2, false)
-  circleBmd.context.fillStyle = "lightBlue";
-  circleBmd.context.fill();
-  circleBmd.context.stroke();
+  // circleBmd.shadow('rgba(0, 0, 0, 0.4)', 100,28,34);
+  const pie = add.sprite(4900, 2094, circleBmd)
+  for (let i = 0; i < slices.length; i++) {
+    const {context} = circleBmd;
+    context.beginPath();
+    context.arc(mp, mp, mp, lastPosition,  Math.PI*2*slices[i] + lastPosition );
+    context.lineTo(mp,mp);
+    context.fillStyle = colors[i];
+    context.fill();
+    context.font = "20pt Roboto"
+    context.fillStyle = 'white'
+
+
+    circleBmd.context.fillText( Math.floor(slices[0] *100).toString()+ '%'   , mp+mp/4, mp+mp/2);
+    circleBmd.context.fillText(data[0], mp+mp/4, 20+mp+mp/2);
+
+
+    const val1 = data[1] + ' ' + Math.floor(slices[1] *100).toString()+ '%'
+    circleBmd.context.fillText(val1, mp/4, mp);
+
+    const val2 = data[2] + ' ' + Math.floor(slices[2] *100).toString()+ '%'
+    circleBmd.context.fillText(val2, mp, mp/2);
+
+
+    lastPosition += Math.PI*2*slices[i];
+}
+
 
 
 
 },
-
 update(){
 
     const {camera} = resume
@@ -340,13 +365,14 @@ createMarker(x, y, text){
   const {add} =resume
   const markerWidth = 1000, markerHeight = 700, markerX = x, markerY = y;
   const bmd = add.bitmapData(markerWidth, markerHeight);
-  bmd.shadow('rgba(0, 0, 0, 0.4)', 100  ,28,34);
+  bmd.shadow('rgba(0, 0, 0, 0.4)', 100,28,34);
   bmd.copy('cardMarker');
   const sprite1 = add.sprite(markerX ,markerY, bmd)
   const title = resume.add.text(0, 0, text, style.card);
   title.setTextBounds(markerX, markerY, markerWidth, markerHeight);
 
 },
+
 
 
 }
