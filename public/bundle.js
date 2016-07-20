@@ -302,7 +302,7 @@
 	    var math = resume.math;
 	    var width = resume.width;
 
-	    var speed = 6;
+	    var speed = 20;
 	    for (var i = 0; i <= 1; i += speed / width) {
 	      var px = math.linearInterpolation(this.points.x, i);
 	      var py = math.linearInterpolation(this.points.y, i);

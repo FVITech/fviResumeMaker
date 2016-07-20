@@ -144,6 +144,7 @@ create(){
 
 
 
+
   //Skills Area
 
 
@@ -165,6 +166,43 @@ create(){
   this.skillThreeBar(2900,barWidth.pro,3005,barWidth.pro,3107,barWidth.exp,2950)
 
 
+  //Rancels Stuff
+
+  // Prueba de Circulo
+  let lastPosition = 0;
+  const slices = [1/3, .33, .34]
+  const data = ['React', 'Canvas', 'React-native']
+  const colors = [style.blue[1], style.yellow[1], style.red[1]]
+  const mp = 250
+  const circleBmd = add.bitmapData(700, 700);
+  // circleBmd.shadow('rgba(0, 0, 0, 0.4)', 100,28,34);
+  const pie = add.sprite(6400, 3300, circleBmd)
+  for (let i = 0; i < slices.length; i++) {
+    const {context} = circleBmd;
+    context.beginPath();
+    context.arc(mp, mp, mp, lastPosition,  Math.PI*2*slices[i] + lastPosition );
+    context.lineTo(mp,mp);
+    context.fillStyle = colors[i];
+    context.fill();
+    context.font = "20pt Roboto"
+    context.fillStyle = 'white'
+
+
+    circleBmd.context.fillText( Math.floor(slices[0] *100).toString()+ '%'   , mp+mp/4, mp+mp/2);
+    circleBmd.context.fillText(data[0], mp+mp/4, 20+mp+mp/2);
+
+
+    const val1 = data[1] + ' ' + Math.floor(slices[1] *100).toString()+ '%'
+    circleBmd.context.fillText(val1, mp/4, mp);
+
+    const val2 = data[2] + ' ' + Math.floor(slices[2] *100).toString()+ '%'
+    circleBmd.context.fillText(val2, mp, mp/2);
+
+
+    lastPosition += Math.PI*2*slices[i];
+  }
+
+
   // Joe's Stuff
 
   //TODO: shift sprite to the left instead of cert to the right
@@ -172,8 +210,9 @@ create(){
   this.createBlueCert(9980, 1400, pData.formalEdu[1])
 
 
-
 },
+
+
 
 update(){
 
@@ -240,10 +279,10 @@ update(){
 
 render(){
   const {debug, renderer} =  resume
-  debug.text("Currently in development. Please  use the right and left arrow keys to navigate.", 16, 16, style.blueGrey500[1])
-  // debug.text(
-  //   'x: ' + Math.round(this.charge.x) + ' y: ' + Math.round(this.charge.y)+ ', roundPixels ' + renderer.renderSession.roundPixels  , 32, 32,'black'
-  // );
+  // debug.text("Currently in development. Please  use the right and left arrow keys to navigate.", 16, 16, style.blueGrey500[1])
+  debug.text(
+    'x: ' + Math.round(this.charge.x) + ' y: ' + Math.round(this.charge.y)+ ', roundPixels ' + renderer.renderSession.roundPixels  , 32, 32,'black'
+  );
 },
 
 plotPath(){
@@ -379,13 +418,14 @@ createMarker(x, y, text){
   const {add} =resume
   const markerWidth = 1000, markerHeight = 700, markerX = x, markerY = y;
   const bmd = add.bitmapData(markerWidth, markerHeight);
-  bmd.shadow('rgba(0, 0, 0, 0.4)', 100  ,28,34);
+  bmd.shadow('rgba(0, 0, 0, 0.4)', 100,28,34);
   bmd.copy('cardMarker');
   const sprite1 = add.sprite(markerX ,markerY, bmd)
   const title = resume.add.text(0, 0, text, style.card);
   title.setTextBounds(markerX, markerY, markerWidth, markerHeight);
 
 },
+
 
 createPanel(x,y,image,skill){
   const {add} = resume
@@ -515,11 +555,11 @@ createBlueCert(x,y, text){
   const bmd = add.bitmapData(certWidth, certHeight);
   bmd.copy('certStriped');
   const sprite1 = add.sprite(certX ,certY, bmd)
-  const title = add.text(0, 0, 'Certifications', style.certifications);
+  const title = add.text(0, 0, 'Other Education', style.certifications);
   title.setTextBounds(certX+100, certY+100, certWidth, certHeight);
 
   const bullets = add.text(0, 0, `\n•\t\t\t${keys[2]}:  ${text.Institution}`, style.bullets);
-  bullets.setTextBounds(certX, certY, certWidth, certHeight)
+  bullets.setTextBounds(certX-30, certY-90, certWidth, certHeight)
   this.createButton(certX, certY, 'verfiy this','blueButton',  'http://www.google.com')
 },
 createButton(x,y,label, image, url){
@@ -553,6 +593,7 @@ createButton(x,y,label, image, url){
 
   }
 },
+
 
 
 }
