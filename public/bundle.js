@@ -117,6 +117,10 @@
 	    load.image('skillsPanelPurple', 'assets/skillsPanelPurple.png');
 	    load.image('skillsPanelTeal', 'assets/skillsPanelTeal.png');
 	    load.image('yellowButton', 'assets/yellowButton.png');
+
+	    load.image('certMedium', 'assets/certMedium.png');
+	    load.image('certStriped', 'assets/certStriped.png');
+	    load.image('blueButton', 'assets/blueButton.png');
 	  },
 	  create: function create() {
 	    var add = resume.add;
@@ -221,6 +225,12 @@
 	    this.createBanner(5330, 2550, pData.skills.banners[2]);
 	    this.createPanel(5000, 2700, 'skillsPanelTeal', pData.skills.backEnd);
 	    this.skillThreeBar(2900, barWidth.pro, 3005, barWidth.pro, 3107, barWidth.exp, 2950);
+
+	    // Joe's Stuff
+
+	    //TODO: shift sprite to the left instead of cert to the right
+	    this.createYellowCert(9980, 2400, pData.formalEdu[0]);
+	    this.createBlueCert(9980, 1400, pData.formalEdu[1]);
 	  },
 	  update: function update() {
 	    var camera = resume.camera;
@@ -512,6 +522,77 @@
 	        bp += resume.time.elapsedMS * speed;
 	      }
 	    };
+	  },
+	  createYellowCert: function createYellowCert(x, y, text) {
+	    var keys = Object.keys(text);
+	    var add = resume.add;
+
+	    var certWidth = 950,
+	        certHeight = 570,
+	        certX = x,
+	        certY = y;
+	    var bmd = add.bitmapData(certWidth, certHeight);
+	    bmd.copy('certMedium');
+	    var sprite1 = add.sprite(certX, certY, bmd);
+	    var title = add.text(0, 0, text.degreeTitle, style.degreeTitle);
+	    title.setTextBounds(certX + 100, certY + 100, certWidth, certHeight);
+	    var year = add.text(0, 0, text.year, style.year);
+	    year.setTextBounds(certX - 98, certY + 100, certWidth, certHeight);
+
+	    var bullets = void 0;
+	    if (text.Specialization === undefined) {
+	      bullets = add.text(0, 0, '\n•\t\t\t' + keys[2] + ':  ' + text.Institution, style.bullets);
+	    } else {
+	      bullets = add.text(0, 0, '\n•\t\t\t' + keys[2] + ':  ' + text.Institution + '\n\n•\t\t\t' + keys[3] + ': ' + text.Specialization, style.bullets);
+	    }
+	    bullets.setTextBounds(certX, certY, certWidth, certHeight);
+	    this.createButton(certX, certY, 'verfiy this', 'yellowButton', 'http://www.google.com');
+	  },
+	  createBlueCert: function createBlueCert(x, y, text) {
+	    var keys = Object.keys(text);
+	    var add = resume.add;
+
+	    var certWidth = 950,
+	        certHeight = 600,
+	        certX = x,
+	        certY = y;
+	    var bmd = add.bitmapData(certWidth, certHeight);
+	    bmd.copy('certStriped');
+	    var sprite1 = add.sprite(certX, certY, bmd);
+	    var title = add.text(0, 0, 'Certifications', style.certifications);
+	    title.setTextBounds(certX + 100, certY + 100, certWidth, certHeight);
+
+	    var bullets = add.text(0, 0, '\n•\t\t\t' + keys[2] + ':  ' + text.Institution, style.bullets);
+	    bullets.setTextBounds(certX, certY, certWidth, certHeight);
+	    this.createButton(certX, certY, 'verfiy this', 'blueButton', 'http://www.google.com');
+	  },
+	  createButton: function createButton(x, y, label, image, url) {
+	    var add = resume.add;
+
+	    var buttonBmd = add.bitmapData(124, 52);
+	    buttonBmd.shadow('rgba(0, 0, 0, 0.2)', 0.0001, 0.0001, 0.0001);
+	    buttonBmd.copy(image);
+	    add.button(x + 420, y + 440, buttonBmd, animate, this);
+	    var text = add.text(x + 420 + 20, y + 440 + 12, label, { font: '20px lintelregular', fill: 'white' });
+
+	    var i = 0;
+	    function animate() {
+	      var arr = [0.0001, 1, 2, 3, 4, 4, 3, 2, 1, 0.0001];
+	      setTimeout(function () {
+	        i++;
+	        buttonBmd.clear();
+	        buttonBmd.copy(image);
+	        buttonBmd.shadow('rgba(0, 0, 0, 0.2)', arr[i], 0.0001, arr[i]);
+
+	        if (i < arr.length) {
+	          animate();
+	        } else {
+	          i = 1;
+	          // ( ()=> window.location.href = url)()
+	          buttonBmd.shadow('rgba(0, 0, 0, 0.2)', 0.0001, 0.0001, 0.0001);
+	        }
+	      }, 80);
+	    }
 	  }
 	};
 
@@ -583,6 +664,8 @@
 	  }
 	};
 
+	var formalEdu = exports.formalEdu = [{ 'degreeTitle': 'Web Application Engineer', 'year': 2016, 'Institution': 'Florida Vocational Institute', 'Specialization': 'Data Visualization' }, { 'degreeTitle': 'High School Diploma', 'year': 2006, 'Institution': 'Westchester Senior High' }];
+
 	var credentials = exports.credentials = {
 	  button: 'verify this',
 	  'Formal Education': {
@@ -632,6 +715,10 @@
 	var card = exports.card = { font: "120px Electrolize", fill: blueGrey600[1], boundsAlignH: "center", boundsAlignV: "middle" };
 	var levels = exports.levels = { font: "20px Roboto", fill: 'white', boundsAlignH: "center", boundsAlignV: "middle" };
 	var skills = exports.skills = { font: "25px Roboto", fill: 'white', boundsAlignH: "left", boundsAlignV: "middle" };
+	var degreeTitle = exports.degreeTitle = { font: "45px lintelregular", fill: yellow[1], boundsAlignH: "left", boundsAlignV: "top" };
+	var certifications = exports.certifications = { font: "45px lintelregular", fill: blue[1], boundsAlignH: "left", boundsAlignV: "top" };
+	var year = exports.year = { font: "45px lintelregular", fill: blueGrey600[1], boundsAlignH: "right", boundsAlignV: "top" };
+	var bullets = exports.bullets = { font: "30px Roboto", fill: blueGrey600[1], boundsAlignH: "center", boundsAlignV: "middle" };
 
 /***/ }
 /******/ ]);
