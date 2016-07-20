@@ -226,6 +226,40 @@
 	    this.createPanel(5000, 2700, 'skillsPanelTeal', pData.skills.backEnd);
 	    this.skillThreeBar(2900, barWidth.pro, 3005, barWidth.pro, 3107, barWidth.exp, 2950);
 
+	    //Rancels Stuff
+
+	    // Prueba de Circulo
+	    var lastPosition = 0;
+	    var slices = [1 / 3, .33, .34];
+	    var data = ['React', 'Canvas', 'React-native'];
+	    var colors = [style.blue[1], style.yellow[1], style.red[1]];
+	    var mp = 250;
+	    var circleBmd = add.bitmapData(700, 700);
+	    // circleBmd.shadow('rgba(0, 0, 0, 0.4)', 100,28,34);
+	    var pie = add.sprite(6400, 3300, circleBmd);
+	    for (var i = 0; i < slices.length; i++) {
+	      var context = circleBmd.context;
+
+	      context.beginPath();
+	      context.arc(mp, mp, mp, lastPosition, Math.PI * 2 * slices[i] + lastPosition);
+	      context.lineTo(mp, mp);
+	      context.fillStyle = colors[i];
+	      context.fill();
+	      context.font = "20pt Roboto";
+	      context.fillStyle = 'white';
+
+	      circleBmd.context.fillText(Math.floor(slices[0] * 100).toString() + '%', mp + mp / 4, mp + mp / 2);
+	      circleBmd.context.fillText(data[0], mp + mp / 4, 20 + mp + mp / 2);
+
+	      var val1 = data[1] + ' ' + Math.floor(slices[1] * 100).toString() + '%';
+	      circleBmd.context.fillText(val1, mp / 4, mp);
+
+	      var val2 = data[2] + ' ' + Math.floor(slices[2] * 100).toString() + '%';
+	      circleBmd.context.fillText(val2, mp, mp / 2);
+
+	      lastPosition += Math.PI * 2 * slices[i];
+	    }
+
 	    // Joe's Stuff
 
 	    //TODO: shift sprite to the left instead of cert to the right
@@ -292,17 +326,15 @@
 	  render: function render() {
 	    var debug = resume.debug;
 	    var renderer = resume.renderer;
+	    // debug.text("Currently in development. Please  use the right and left arrow keys to navigate.", 16, 16, style.blueGrey500[1])
 
-	    debug.text("Currently in development. Please  use the right and left arrow keys to navigate.", 16, 16, style.blueGrey500[1]);
-	    // debug.text(
-	    //   'x: ' + Math.round(this.charge.x) + ' y: ' + Math.round(this.charge.y)+ ', roundPixels ' + renderer.renderSession.roundPixels  , 32, 32,'black'
-	    // );
+	    debug.text('x: ' + Math.round(this.charge.x) + ' y: ' + Math.round(this.charge.y) + ', roundPixels ' + renderer.renderSession.roundPixels, 32, 32, 'black');
 	  },
 	  plotPath: function plotPath() {
 	    var math = resume.math;
 	    var width = resume.width;
 
-	    var speed = 20;
+	    var speed = 6;
 	    for (var i = 0; i <= 1; i += speed / width) {
 	      var px = math.linearInterpolation(this.points.x, i);
 	      var py = math.linearInterpolation(this.points.y, i);
@@ -559,11 +591,11 @@
 	    var bmd = add.bitmapData(certWidth, certHeight);
 	    bmd.copy('certStriped');
 	    var sprite1 = add.sprite(certX, certY, bmd);
-	    var title = add.text(0, 0, 'Certifications', style.certifications);
+	    var title = add.text(0, 0, 'Other Education', style.certifications);
 	    title.setTextBounds(certX + 100, certY + 100, certWidth, certHeight);
 
 	    var bullets = add.text(0, 0, '\n•\t\t\t' + keys[2] + ':  ' + text.Institution, style.bullets);
-	    bullets.setTextBounds(certX, certY, certWidth, certHeight);
+	    bullets.setTextBounds(certX - 30, certY - 90, certWidth, certHeight);
 	    this.createButton(certX, certY, 'verfiy this', 'blueButton', 'http://www.google.com');
 	  },
 	  createButton: function createButton(x, y, label, image, url) {
